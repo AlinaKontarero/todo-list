@@ -1,0 +1,33 @@
+:root {
+  --white: #fff;
+  --pink:  #f93d66;
+  --violet: #6d47d9
+}
+
+.App {
+  background:linear-gradient(110deg, var(--pink), var(--violet));
+  color: var(--white);
+  height: 100%;
+  min-height: 100vh;
+  padding: 0 auto;
+  margin: 0 auto;
+}
+
+
+
+/* Scrollbar Styles */
+body::-webkit-scrollbar {
+  width: 12px;
+}
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--pink) var(--white);
+}
+body::-webkit-scrollbar-track {
+  background: var(--white);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: var(--pink);
+  border-radius: 6px;
+  border: 3px solid var(--white);
+}
