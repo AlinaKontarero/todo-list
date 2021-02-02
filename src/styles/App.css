@@ -5,8 +5,8 @@
 }
 
 .App {
-  background:linear-gradient(110deg, var(--pink), var(--violet));
-  color: var(--white);
+  /* background:linear-gradient(110deg, var(--pink), var(--violet)); */
+  /* color: var(--white); */
   height: 100%;
   min-height: 100vh;
   padding: 0 auto;
@@ -14,9 +14,13 @@
 }
 
 .is-main {
-  background-color: rgba(255, 255, 255, 0.5)
+  /* background-color: rgba(255, 255, 255, 0.5) */
 }
 
+.is-task {
+  background-color: #84D6F3;
+  border-radius: 5px;
+}
 
 /* Scrollbar Styles */
 body::-webkit-scrollbar {

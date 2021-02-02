@@ -13,15 +13,15 @@ import { ITask } from '../types/types';
 interface Props {
   task: ITask
   handleComplete: () => void
-  onClose: () => void 
+  onDelete: (content: string) => void 
 }
 
 class Task extends React.Component<Props, never> { 
   render() {
-    const { task, handleComplete, onClose } = this.props
+    const { task, handleComplete, onDelete } = this.props
 
     return (
-      <div className='column is-3 is-9-offset'>
+      
         <div className='columns is-variable is-2 is-vcentered'>
           <div className='column is-narrow'>
             <Checkbox 
@@ -33,12 +33,12 @@ class Task extends React.Component<Props, never> {
             {task.content}
           </div>
           <div className='column'>
-            <FontAwesomeIcon icon={["fas", task.isHightPriority ? 'arrow-up' : 'arrow-down' ]} size='lg' />
+            {/* <FontAwesomeIcon icon={["fas", task.isHightPriority ? 'fa arrow-up' : 'fa arrow-down' ]} size='lg' /> */}
           </div>
           <div className='column is-narrow is-pulled-right'>
           <Tooltip title='Close' TransitionComponent={Zoom} arrow={true} placement={'top'}>
             <IconButton 
-              onClick={onClose} 
+              onClick={() => onDelete(task.content)} 
               color='inherit'
               >
               <DeleteIcon />
@@ -46,7 +46,6 @@ class Task extends React.Component<Props, never> {
           </Tooltip>
           </div>
         </div>
-      </div>
     )
   }
 }
