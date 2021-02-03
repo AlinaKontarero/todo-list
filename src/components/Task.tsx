@@ -12,7 +12,7 @@ import { ITask } from '../types/types';
 
 interface Props {
   task: ITask
-  handleComplete: () => void
+  handleComplete: (content: string) => void
   onDelete: (content: string) => void 
 }
 
@@ -25,8 +25,9 @@ class Task extends React.Component<Props, never> {
         <div className='columns is-variable is-2 is-vcentered'>
           <div className='column is-narrow'>
             <Checkbox 
+              value={task.content}
               checked={task.isCompleted}
-              onChange={handleComplete}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleComplete(e.target.value)}
             />
           </div>
           <div className='column'>

@@ -1,26 +1,20 @@
-import './styles/App.css';
-import { TextField, IconButton, InputAdornment, FormHelperText } from '@material-ui/core'
-import AddIcon from '@material-ui/icons/Add';
-import Task from './components/Task';
 import * as React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { TextField, IconButton, InputAdornment, FormHelperText, makeStyles, createStyles, Theme } from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add';
 import { ITask } from './types/types';
-import { makeid } from './utlis/makeid';
+import TasksLayout from './components/TasksLayout';
+import './styles/App.css';
+import { ContactsOutlined } from '@material-ui/icons';
+
 
 const App = () => {
-  const [taskContent, setTaskContent] = React.useState('')
-  const [tasks, setTasks] = React.useState([] as ITask[])
-
-  const state = {
-    task: {
-      content: 'Hello',
-      isHightPriority: true,
-      isCompleted: true
-    },
-    handleComplete: () => console.log('complete'),
-    onClose: () => console.log('delete')
+  const startTask: ITask = {
+    content: 'Make a to-do list app',
+    isCompleted: true,
+    isHightPriority: true
   }
+  const [taskContent, setTaskContent] = React.useState('')
+  const [tasks, setTasks] = React.useState([startTask] as ITask[])
 
   const addTask = () => {
     if(taskContent) {
@@ -37,20 +31,25 @@ const App = () => {
   const handleDelete = (content: string) => {
     const filteredArr = tasks.filter(_t => _t.content !== content)
     setTasks([...filteredArr])
-    
   }
 
-  const handleComplete = () => {
-    console.log('com')
+  const handleComplete = (content: string) => {
+    const newTasks = [...tasks]
+    const index = newTasks.findIndex(task => task.content === content)
+    newTasks[index].isCompleted = !tasks[index].isCompleted
+    setTasks(newTasks)
   }
 
   const isErrorTask = taskContent ? (taskContent.length > 255 || tasks.some(_t => _t.content === taskContent)) : false
 
-  console.log("tasks:::", tasks )
+  const completedNumber = tasks
+    .filter(t => t.isCompleted)
+    .length
+  const classes = useStyles();
   return (
     <div className="App">
-      <div className='columns is-centered App'>
-      <div className='column is-10 is-main'>
+      <div className='columns is-centered'>
+      <div className='column  is-4 is-8-offset is-main'>
         <div className='columns is-multiline is-variable is-2 '>
           <div className='column is-full'> 
             <h1>To Do List</h1>
@@ -58,11 +57,13 @@ const App = () => {
           <div className='column is-full'> 
             <h2>Add a new task to your list:</h2>
             <TextField 
+              className={classes.root}
               label='New task' 
               variant='outlined'
               error={isErrorTask}
               onChange={e => setTaskContent(e.target.value)}
               color='secondary'
+              disabled={tasks.length > 10}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -74,37 +75,49 @@ const App = () => {
                       <AddIcon />
                     </IconButton>
                     )}
-                   
                   </InputAdornment>
                 )
               }}
               /> 
               {isErrorTask && (
-              <FormHelperText className='message-helper-text' error>
+              <FormHelperText error>
                 This task description is longer 255 characters, or is has been already set.
               </FormHelperText>
               )}
+              {tasks.length > 10 && (
+              <FormHelperText>
+                Enough tasks for the day!
+              </FormHelperText>
+              )}
           </div>
+          {tasks.length > 0 &&
+            <div className='column is-full'>
+            {`There ${completedNumber === 1 ? `is` : `are`} 
+            ${completedNumber > 0 ? completedNumber : 'no'} 
+            completed from ${tasks.length} added task${tasks.length === 1 ? '' : 's'}.`}
+          </div>}
           <div className='column is-full'>
-            There are 5 completed tasks from 10. 
+          {tasks.length > 0 &&
+            <TasksLayout 
+              tasks={tasks}
+              onDelete={handleDelete}
+              handleComplete={handleComplete}
+            />
+          }
           </div>
-          {tasks.length > 0 && tasks.map((_t: ITask) => (
-            <div className='column is-3 is-9-offset is-task' key={makeid()}>
-              <Task 
-                task={_t} 
-                onDelete={handleDelete}
-                handleComplete={handleComplete}
-              />
-
-            </div>
-          ))}
-          
-        
         </div>
       </div>
     </div>
     </div>
   );
 }
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: '100%',
+    },
+  }),
+);
 
 export default App;
