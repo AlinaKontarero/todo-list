@@ -5,8 +5,9 @@ import { makeid } from '../utlis/makeid';
 
 interface Props {
   tasks: ITask[]
-  handleComplete: (content: string) => void
   onDelete: (content: string) => void 
+  handleComplete: (content: string) => void
+  handlePriority: (content: string) => void
 }
 
 const TasksLayout = (props: Props) => { 
@@ -16,8 +17,9 @@ const TasksLayout = (props: Props) => {
         <div className='column is-full is-task' key={makeid()}>
           <Task 
             task={_task}
-            handleComplete={props.handleComplete}
             onDelete={props.onDelete}
+            handleComplete={props.handleComplete}
+            handlePriority={props.handlePriority}
           />
         </div>
       ))}

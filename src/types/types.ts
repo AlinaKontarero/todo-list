@@ -1,5 +1,5 @@
 export type ITask = {
   content: string
-  isHightPriority: boolean
+  isHighPriority: boolean
   isCompleted: boolean
 }

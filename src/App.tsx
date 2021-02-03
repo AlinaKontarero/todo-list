@@ -4,14 +4,13 @@ import AddIcon from '@material-ui/icons/Add';
 import { ITask } from './types/types';
 import TasksLayout from './components/TasksLayout';
 import './styles/App.css';
-import { ContactsOutlined } from '@material-ui/icons';
 
 
 const App = () => {
   const startTask: ITask = {
     content: 'Make a to-do list app',
     isCompleted: true,
-    isHightPriority: true
+    isHighPriority: true
   }
   const [taskContent, setTaskContent] = React.useState('')
   const [tasks, setTasks] = React.useState([startTask] as ITask[])
@@ -21,9 +20,8 @@ const App = () => {
       const task: ITask = {
         content: taskContent,
         isCompleted: false,
-        isHightPriority: false
+        isHighPriority: false
       }
-
       setTasks([...tasks, task])
     }
   }
@@ -40,15 +38,25 @@ const App = () => {
     setTasks(newTasks)
   }
 
-  const isErrorTask = taskContent ? (taskContent.length > 255 || tasks.some(_t => _t.content === taskContent)) : false
+  const handlePriority = (content: string) => {
+    const newTasks = [...tasks]
+    const index = newTasks.findIndex(task => task.content === content)
+    newTasks[index].isHighPriority = !tasks[index].isHighPriority
+    setTasks(newTasks)
+  }
+  
+  const isErrorTask = taskContent 
+    ? (taskContent.length > 255 || tasks.some(_t => _t.content === taskContent)) 
+    : false
 
   const completedNumber = tasks
     .filter(t => t.isCompleted)
     .length
+
   const classes = useStyles();
+
   return (
-    <div className="App">
-      <div className='columns is-centered'>
+    <div className="App columns is-centered">
       <div className='column  is-4 is-8-offset is-main'>
         <div className='columns is-multiline is-variable is-2 '>
           <div className='column is-full'> 
@@ -68,9 +76,9 @@ const App = () => {
                 endAdornment: (
                   <InputAdornment position="end">
                     {!isErrorTask && (
-                       <IconButton 
-                      onClick={addTask} 
-                      color='inherit'
+                      <IconButton 
+                        onClick={addTask} 
+                        color='inherit'
                       >
                       <AddIcon />
                     </IconButton>
@@ -86,7 +94,7 @@ const App = () => {
               )}
               {tasks.length > 10 && (
               <FormHelperText>
-                Enough tasks for the day!
+                Enough tasks for the day! Take a rest. 
               </FormHelperText>
               )}
           </div>
@@ -102,12 +110,12 @@ const App = () => {
               tasks={tasks}
               onDelete={handleDelete}
               handleComplete={handleComplete}
+              handlePriority={handlePriority}
             />
           }
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }
