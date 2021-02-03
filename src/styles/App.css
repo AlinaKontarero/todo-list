@@ -5,15 +5,36 @@
 }
 
 .App {
-  background:linear-gradient(110deg, var(--pink), var(--violet));
-  color: var(--white);
+  /* background:linear-gradient(110deg, var(--pink), var(--violet)); */
+  /* color: var(--white); */
+  padding-top: 50px;
   height: 100%;
   min-height: 100vh;
   padding: 0 auto;
   margin: 0 auto;
 }
 
+h1, h2 {
+  margin-bottom: 20px;
+}
 
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+.is-main {
+  /* background-color: rgba(255, 255, 255, 0.5) */
+}
+
+.is-task {
+  background-color: #84D6F3;
+  border-radius: 5px;
+  margin-bottom: 10px
+}
 
 /* Scrollbar Styles */
 body::-webkit-scrollbar {
