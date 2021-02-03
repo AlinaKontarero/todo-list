@@ -8,6 +8,9 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 interface Props {
   disabled: boolean
+  handleSort: () => void
+  handleDirection: () => void
+  direction: string // 'ASC' | 'DESC'
 }
 
 const SortingBar = (props: Props) => { 
@@ -29,10 +32,10 @@ const SortingBar = (props: Props) => {
       <div className='column is-pulled-right'>
         <IconButton 
           disabled={props.disabled}
-          onClick={() => console.log('hello')} 
+          onClick={props.handleDirection} 
           color='inherit'
           >
-          {props.disabled ? <ArrowDropUpIcon /> : <ArrowDropDownIcon /> }
+          {props.direction === 'DESC' ? <ArrowDropUpIcon /> : <ArrowDropDownIcon /> }
         </IconButton>
       </div>
     </div>

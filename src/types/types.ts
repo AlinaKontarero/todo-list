@@ -3,3 +3,7 @@ export type ITask = {
   isHighPriority: boolean
   isCompleted: boolean
 }
+
+export type Direction = {
+  direction: 'ASC' | 'DESC'
+}

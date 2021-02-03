@@ -7,6 +7,7 @@ import './styles/App.css';
 import SortingBar from './components/SortingBar';
 
 
+
 const App = () => {
   const startTask: ITask = {
     content: 'Make a to-do list app',
@@ -15,6 +16,8 @@ const App = () => {
   }
   const [taskContent, setTaskContent] = React.useState('')
   const [tasks, setTasks] = React.useState([startTask] as ITask[])
+  const [sortingProperty, setSortingProperty] = React.useState('')
+  const [direction, setDirection] = React.useState('ASC')
 
   const addTask = () => {
     if(taskContent) {
@@ -55,6 +58,28 @@ const App = () => {
     .length
 
   const classes = useStyles();
+
+  const info = <div className='column is-full'>
+  {`There ${completedNumber === 1 ? `is` : `are`} 
+  ${completedNumber > 0 ? completedNumber : 'no'} 
+  completed from ${tasks.length} added task${tasks.length === 1 ? '' : 's'}.`}
+</div>
+
+  const handleSort = () => {
+    const newTasks: ITask[] = [...tasks]
+    if(direction === 'ASC') {
+      newTasks.sort((a, b) => a.content > b.content ? 1 : -1)
+    } else {
+      newTasks.sort((a, b) => a.content < b.content ? 1 : -1)
+    }
+    
+    setTasks(newTasks)
+  }
+
+  const handleDirection = () => {
+    const newDirection = direction === 'ASC' ? 'DESC' : 'ASC'
+    setDirection(newDirection)
+  }
 
   return (
     <div className="App columns is-centered">
@@ -99,16 +124,14 @@ const App = () => {
               </FormHelperText>
               )}
           </div>
-          {tasks.length > 0 &&
-            <div className='column is-full'>
-            {`There ${completedNumber === 1 ? `is` : `are`} 
-            ${completedNumber > 0 ? completedNumber : 'no'} 
-            completed from ${tasks.length} added task${tasks.length === 1 ? '' : 's'}.`}
-          </div>}
+          {tasks.length > 0 && info}
           <div className='column is-full'>
-              <SortingBar 
-                disabled={tasks.length < 2}
-              />
+            <SortingBar 
+              disabled={tasks.length < 2}
+              handleSort={handleSort}
+              handleDirection={handleDirection}
+              direction={direction}
+            />
             {tasks.length > 0 &&
               <TasksLayout 
                 tasks={tasks}
