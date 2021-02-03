@@ -19,7 +19,6 @@ class Task extends React.Component<Props, never> {
     const { task, handleComplete, onDelete, handlePriority } = this.props
 
     return (
-      
         <div className='columns is-variable is-2 is-vcentered'>
           <div className='column is-narrow'>
             <Checkbox 

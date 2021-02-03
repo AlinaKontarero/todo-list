@@ -4,6 +4,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { ITask } from './types/types';
 import TasksLayout from './components/TasksLayout';
 import './styles/App.css';
+import SortingBar from './components/SortingBar';
 
 
 const App = () => {
@@ -105,14 +106,17 @@ const App = () => {
             completed from ${tasks.length} added task${tasks.length === 1 ? '' : 's'}.`}
           </div>}
           <div className='column is-full'>
-          {tasks.length > 0 &&
-            <TasksLayout 
-              tasks={tasks}
-              onDelete={handleDelete}
-              handleComplete={handleComplete}
-              handlePriority={handlePriority}
-            />
-          }
+              <SortingBar 
+                disabled={tasks.length < 2}
+              />
+            {tasks.length > 0 &&
+              <TasksLayout 
+                tasks={tasks}
+                onDelete={handleDelete}
+                handleComplete={handleComplete}
+                handlePriority={handlePriority}
+              />
+            }
           </div>
         </div>
       </div>

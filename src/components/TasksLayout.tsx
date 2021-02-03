@@ -12,7 +12,7 @@ interface Props {
 
 const TasksLayout = (props: Props) => { 
   return (
-    <div className='columns is-multiline is-variable is-2'>
+    <div className='columns is-multiline is-variable is-2 is-vertical'>
       {props.tasks.map(_task => (
         <div className='column is-full is-task' key={makeid()}>
           <Task 
