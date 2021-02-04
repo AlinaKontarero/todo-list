@@ -4,6 +4,7 @@ export type ITask = {
   isCompleted: boolean
 }
 
-export type Direction = {
-  direction: 'ASC' | 'DESC'
+export enum Direction {
+  ASC = 'ASC',
+  DESC = 'DESC'
 }
