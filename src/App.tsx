@@ -1,19 +1,26 @@
 import * as React from 'react'
-import { TextField, IconButton, InputAdornment, FormHelperText, makeStyles, createStyles, Theme } from '@material-ui/core'
+import { TextField, IconButton, InputAdornment, FormHelperText, makeStyles, createStyles, Theme, MenuItem, Select } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import { ITask } from './types/types';
 import TasksLayout from './components/TasksLayout';
 import './styles/App.css';
 import SortingBar from './components/SortingBar';
+import { makeid } from './utlis/makeid';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 const App = () => {
-  const startTask: ITask = {
+  const startTasks: ITask[] = [{
     content: 'Make a to-do list app',
     isCompleted: true,
     isHighPriority: true
-  }
+  }, {
+    content: 'Send solution',
+    isCompleted: false,
+    isHighPriority: false
+  }]
   const [taskContent, setTaskContent] = React.useState('')
-  const [tasks, setTasks] = React.useState([startTask] as ITask[])
+  const [tasks, setTasks] = React.useState(startTasks)
   const [sortingProperty, setSortingProperty] = React.useState('name')
   const [direction, setDirection] = React.useState('ASC')
 
@@ -69,25 +76,48 @@ const App = () => {
       completed from ${tasks.length} added task${tasks.length === 1 ? '' : 's'}.`}
     </>
 </div>
-
-  const handleSort = () => {
-    const newTasks: ITask[] = [...tasks]
-    if(direction === 'ASC') {
-      newTasks.sort((a, b) => a.content > b.content ? 1 : -1)
-    } else {
-      newTasks.sort((a, b) => a.content < b.content ? 1 : -1)
-    }
-    
-    setTasks(newTasks)
-  }
-
-  const handleDirection = () => {
+  console.log()
+  const handleDirection = async () => {
     const newDirection = direction === 'ASC' ? 'DESC' : 'ASC'
-    setDirection(newDirection)
+    await setDirection(newDirection)
+    sorting()
   }
 
   const handleSortingProperty = (property: string) => {
     setSortingProperty(property)
+    sorting()
+  }
+
+  const sorting = () => {
+    const newTasks: ITask[] = [...tasks]
+    console.log('direction::: ', direction)
+    console.log('sortingProperty::: ', sortingProperty)
+
+    if(direction === 'ASC') {
+      if(sortingProperty === 'name') {
+        newTasks.sort((a, b) => a.content > b.content ? 1 : -1)
+      } else {
+        newTasks.sort((a, b) => a.isHighPriority === b.isHighPriority 
+          ? 0 
+          : a.isHighPriority 
+            ? 1
+            :-1)
+      }
+    } 
+
+    if(direction === 'DESC') {
+      if(sortingProperty === 'name') {
+        newTasks.sort((a, b) => a.content > b.content ? -1 : 1)
+      } else {
+        newTasks.sort((a, b) => a.isHighPriority === b.isHighPriority 
+          ? 0 
+          : a.isHighPriority 
+            ? -1
+            : 1)
+      }
+    }
+    
+    setTasks(newTasks)   
   }
 
   return (
@@ -106,7 +136,7 @@ const App = () => {
               error={isLongTask}
               onChange={e => setTaskContent(e.target.value)}
               color='secondary'
-              disabled={tasks.length > 10}
+              disabled={tasks.length >= 10}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -127,7 +157,7 @@ const App = () => {
                 This task description is longer 100 characters.
               </FormHelperText>
               )}
-              {tasks.length > 10 && (
+              {tasks.length >= 10 && (
               <FormHelperText>
                 Enough tasks for the day! Take a rest. 
               </FormHelperText>
@@ -135,14 +165,38 @@ const App = () => {
           </div>
           {tasks.length > 0 && info}
           <div className='column is-full'>
-            <SortingBar 
+            {/* <SortingBar 
               disabled={tasks.length < 2}
-              handleSort={handleSort}
               handleDirection={handleDirection}
               direction={direction}
               sortingProperty={sortingProperty}
               handleSortingProperty={handleSortingProperty}
-            />
+            /> */}
+            <div className='columns is-variable is-2 is-vcentered'>
+            <div className='column'>Sort by:</div>
+            <div className='column is-pulled-left is-3'>
+              <Select
+                className={classes.root}
+                value={sortingProperty}
+                onChange={(e) => handleSortingProperty(e.target.value as string)}
+                MenuProps={{ disableScrollLock: true}}
+                disabled={tasks.length < 2}
+                color='secondary'
+              >
+                <MenuItem value={'name'} key={makeid()}>name</MenuItem>
+                <MenuItem value={'priority'} key={makeid()}>priority</MenuItem>
+              </Select>
+            </div>
+            <div className='column is-pulled-right is-1'>
+              <IconButton 
+                disabled={tasks.length < 2}
+                onClick={handleDirection} 
+                color='inherit'
+                >
+                {direction === 'DESC' ? <ArrowDropUpIcon /> : <ArrowDropDownIcon /> }
+              </IconButton>
+            </div>
+          </div>
             {tasks.length > 0 &&
               <TasksLayout 
                 tasks={tasks}
@@ -162,6 +216,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
+      background: 'white',
+      borderRadius: 8
     },
   }),
 );

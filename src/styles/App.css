@@ -3,7 +3,7 @@
   --pink:  #f93d66;
   --violet: #6d47d9;
   --text: #2E2852;
-  --background: #F5F5F8;
+  --background: #EAEAEC;
   --primary: #ED4D87;
   --secondary: #5DCB9A
 }
@@ -32,9 +32,11 @@ h2 {
 
 .is-task {
   background-color: var(--white);
-  border-color: red;
   border-radius: 8px;
-  margin-bottom: 10px
+  margin-bottom: 16px;
+}
+.is-task:last-child {
+  margin-bottom: 48px;
 }
 
 /* Scrollbar Styles */

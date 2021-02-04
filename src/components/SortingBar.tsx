@@ -6,10 +6,9 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 interface Props {
   disabled: boolean
-  handleSort: () => void
-  handleDirection: () => void
   direction: string 
   sortingProperty: string
+  handleDirection: () => void
   handleSortingProperty: (property: string) => void
 }
 
