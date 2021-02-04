@@ -6,8 +6,6 @@ import TasksLayout from './components/TasksLayout';
 import './styles/App.css';
 import SortingBar from './components/SortingBar';
 
-
-
 const App = () => {
   const startTask: ITask = {
     content: 'Make a to-do list app',
@@ -16,7 +14,7 @@ const App = () => {
   }
   const [taskContent, setTaskContent] = React.useState('')
   const [tasks, setTasks] = React.useState([startTask] as ITask[])
-  const [sortingProperty, setSortingProperty] = React.useState('')
+  const [sortingProperty, setSortingProperty] = React.useState('name')
   const [direction, setDirection] = React.useState('ASC')
 
   const addTask = () => {
@@ -49,9 +47,13 @@ const App = () => {
     setTasks(newTasks)
   }
   
-  const isErrorTask = taskContent 
-    ? (taskContent.length > 255 || tasks.some(_t => _t.content === taskContent)) 
+  const isDuplicatedTask = taskContent 
+    ? (tasks.some(_t => _t.content === taskContent)) 
     : false
+
+  const isLongTask = taskContent 
+  ? (taskContent.length > 100) 
+  : false
 
   const completedNumber = tasks
     .filter(t => t.isCompleted)
@@ -60,9 +62,12 @@ const App = () => {
   const classes = useStyles();
 
   const info = <div className='column is-full'>
-  {`There ${completedNumber === 1 ? `is` : `are`} 
-  ${completedNumber > 0 ? completedNumber : 'no'} 
-  completed from ${tasks.length} added task${tasks.length === 1 ? '' : 's'}.`}
+    <h2>Current tasks</h2>
+    <>
+      {`There ${completedNumber === 1 ? `is` : `are`} 
+      ${completedNumber > 0 ? completedNumber : 'no'} 
+      completed from ${tasks.length} added task${tasks.length === 1 ? '' : 's'}.`}
+    </>
 </div>
 
   const handleSort = () => {
@@ -81,6 +86,10 @@ const App = () => {
     setDirection(newDirection)
   }
 
+  const handleSortingProperty = (property: string) => {
+    setSortingProperty(property)
+  }
+
   return (
     <div className="App columns is-centered">
       <div className='column  is-4 is-8-offset is-main'>
@@ -89,19 +98,19 @@ const App = () => {
             <h1>To Do List</h1>
           </div>
           <div className='column is-full'> 
-            <h2>Add a new task to your list:</h2>
+            <h2>Add a new task to your list</h2>
             <TextField 
               className={classes.root}
               label='New task' 
               variant='outlined'
-              error={isErrorTask}
+              error={isLongTask}
               onChange={e => setTaskContent(e.target.value)}
               color='secondary'
               disabled={tasks.length > 10}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    {!isErrorTask && (
+                    {!isLongTask && !isDuplicatedTask && (
                       <IconButton 
                         onClick={addTask} 
                         color='inherit'
@@ -113,9 +122,9 @@ const App = () => {
                 )
               }}
               /> 
-              {isErrorTask && (
+              {isLongTask && (
               <FormHelperText error>
-                This task description is longer 255 characters, or is has been already set.
+                This task description is longer 100 characters.
               </FormHelperText>
               )}
               {tasks.length > 10 && (
@@ -131,6 +140,8 @@ const App = () => {
               handleSort={handleSort}
               handleDirection={handleDirection}
               direction={direction}
+              sortingProperty={sortingProperty}
+              handleSortingProperty={handleSortingProperty}
             />
             {tasks.length > 0 &&
               <TasksLayout 
