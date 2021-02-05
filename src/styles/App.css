@@ -1,12 +1,16 @@
 :root {
   --white: #fff;
   --pink:  #f93d66;
-  --violet: #6d47d9
+  --violet: #6d47d9;
+  --text: #2E2852;
+  --background: #EAEAEC;
+  --primary: #ED4D87;
+  --secondary: #5DCB9A
 }
 
 .App {
-  /* background:linear-gradient(110deg, var(--pink), var(--violet)); */
-  /* color: var(--white); */
+  background: var(--background);
+  color: var(--text);
   padding-top: 50px;
   height: 100%;
   min-height: 100vh;
@@ -26,14 +30,13 @@ h2 {
   font-size: 1.5rem;
 }
 
-.is-main {
-  /* background-color: rgba(255, 255, 255, 0.5) */
-}
-
 .is-task {
-  background-color: #84D6F3;
-  border-radius: 5px;
-  margin-bottom: 10px
+  background-color: var(--white);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.is-task:last-child {
+  margin-bottom: 48px;
 }
 
 /* Scrollbar Styles */
