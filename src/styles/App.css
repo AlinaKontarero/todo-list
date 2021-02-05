@@ -39,8 +39,6 @@ h2 {
   margin-bottom: 48px;
 }
 
-.columns { width: 100%; }
-
 /* Scrollbar Styles */
 body::-webkit-scrollbar {
   width: 12px;
