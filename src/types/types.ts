@@ -4,7 +4,6 @@ export type ITask = {
   isCompleted: boolean
 }
 
-export enum Direction {
-  ASC = 'ASC',
-  DESC = 'DESC'
-}
+export type Order = 'asc' | 'desc';
+
+export type OrderBy = 'name' | 'priority'

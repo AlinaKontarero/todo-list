@@ -15,6 +15,7 @@ const App = () => {
     isCompleted: false,
     isHighPriority: false
   }]
+  
   const [taskContent, setTaskContent] = React.useState('')
   const [tasks, setTasks] = React.useState(startTasks)
 
@@ -43,7 +44,7 @@ const App = () => {
 
   const handlePriority = (content: string) => {
     const newTasks = [...tasks]
-    const index = newTasks.findIndex(task => task.content === content)
+    const index = newTasks.findIndex(task => task.content === content) | 0
     newTasks[index].isHighPriority = !tasks[index].isHighPriority
     setTasks(newTasks)
   }
