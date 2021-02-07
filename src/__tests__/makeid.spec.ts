@@ -1,4 +1,4 @@
-import { makeid } from "../utlis/makeid";
+import { makeid } from "../utils/makeid";
 
 
 describe('makeid', () => {
