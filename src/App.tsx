@@ -108,7 +108,6 @@ const App = () => {
               handleDelete={handleDelete}
               handleComplete={handleComplete}
               handlePriority={handlePriority}
-              setTasks={setTasks}
             />
           </div>
         </div>

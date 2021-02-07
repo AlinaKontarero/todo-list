@@ -11,7 +11,6 @@ interface Props {
   handleDelete: (content: string) => void 
   handleComplete: (content: string) => void
   handlePriority: (content: string) => void
-  setTasks: (tasks: ITask[]) => void
 }
 
 interface State {
