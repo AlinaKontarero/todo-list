@@ -3,7 +3,7 @@
 exports[`Task should render initial layout 1`] = `
 Array [
   <div
-    className="column if-full is-task"
+    className="column is-full is-task"
   >
     <div
       className="columns is-variable is-2 is-vcentered is-gapless"
