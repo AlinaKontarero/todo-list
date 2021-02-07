@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Task should render initial layout 1`] = `
+Array [
+  <div
+    className="column if-full is-task"
+  >
+    <div
+      className="columns is-variable is-2 is-vcentered is-gapless"
+    >
+      <div
+        className="column is-narrow"
+      >
+        <WithStyles(ForwardRef(Checkbox))
+          checked={true}
+          onChange={[Function]}
+          value="Test 1"
+        />
+      </div>
+      <div
+        className="column"
+      >
+        Test 1
+      </div>
+      <div
+        className="column is-narrow"
+      >
+        <WithStyles(ForwardRef(Tooltip))
+          TransitionComponent={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "propTypes": Object {
+                "children": [Function],
+                "disableStrictModeCompat": [Function],
+                "in": [Function],
+                "onEnter": [Function],
+                "onEntered": [Function],
+                "onEntering": [Function],
+                "onExit": [Function],
+                "onExited": [Function],
+                "onExiting": [Function],
+                "style": [Function],
+                "timeout": [Function],
+              },
+              "render": [Function],
+            }
+          }
+          arrow={true}
+          placement="top"
+          title="Priority"
+        >
+          <WithStyles(ForwardRef(IconButton))
+            color="inherit"
+            onClick={[Function]}
+          >
+            <Memo />
+          </WithStyles(ForwardRef(IconButton))>
+        </WithStyles(ForwardRef(Tooltip))>
+      </div>
+      <div
+        className="column is-narrow is-pulled-right"
+      >
+        <WithStyles(ForwardRef(Tooltip))
+          TransitionComponent={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "propTypes": Object {
+                "children": [Function],
+                "disableStrictModeCompat": [Function],
+                "in": [Function],
+                "onEnter": [Function],
+                "onEntered": [Function],
+                "onEntering": [Function],
+                "onExit": [Function],
+                "onExited": [Function],
+                "onExiting": [Function],
+                "style": [Function],
+                "timeout": [Function],
+              },
+              "render": [Function],
+            }
+          }
+          arrow={true}
+          placement="top"
+          title="Close"
+        >
+          <WithStyles(ForwardRef(IconButton))
+            color="inherit"
+            onClick={[Function]}
+          >
+            <Memo />
+          </WithStyles(ForwardRef(IconButton))>
+        </WithStyles(ForwardRef(Tooltip))>
+      </div>
+    </div>
+  </div>,
+]
+`;

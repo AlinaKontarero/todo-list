@@ -19,7 +19,8 @@ class Task extends React.Component<Props, never> {
     const { task, handleComplete, onDelete, handlePriority } = this.props
 
     return (
-        <div className='columns is-variable is-2 is-vcentered'>
+      <div className='column if-full is-task'>
+        <div className='columns is-variable is-2 is-vcentered is-gapless'>
           <div className='column is-narrow'>
             <Checkbox 
               value={task.content}
@@ -31,14 +32,14 @@ class Task extends React.Component<Props, never> {
             {task.content}
           </div>
           <div className='column is-narrow'>
-          <Tooltip title='Priority' TransitionComponent={Zoom} arrow={true} placement={'top'}>
-            <IconButton 
-              onClick={() => handlePriority(task.content)} 
-              color='inherit'
-              >
-              {task.isHighPriority ? <ArrowUpwardIcon /> : <ArrowDownwardIcon /> }
-            </IconButton>
-          </Tooltip>
+            <Tooltip title='Priority' TransitionComponent={Zoom} arrow={true} placement={'top'}>
+              <IconButton 
+                onClick={() => handlePriority(task.content)} 
+                color='inherit'
+                >
+                {task.isHighPriority ? <ArrowUpwardIcon /> : <ArrowDownwardIcon /> }
+              </IconButton>
+            </Tooltip>
           </div>
           <div className='column is-narrow is-pulled-right'>
           <Tooltip title='Close' TransitionComponent={Zoom} arrow={true} placement={'top'}>
@@ -51,6 +52,7 @@ class Task extends React.Component<Props, never> {
           </Tooltip>
           </div>
         </div>
+      </div>
     )
   }
 }
