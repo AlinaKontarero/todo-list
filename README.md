@@ -1,5 +1,5 @@
 # ToDo List
-
+This is a simple React app to manage a To Do List. Project has been deployed with AWS S3 Bucket: [to-do-list](http://to-do-list-rocketlab.s3-website-ap-southeast-2.amazonaws.com/)
 ## Available Scripts
 
 In the project directory, you can run:
