@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { TextField, IconButton, InputAdornment, FormHelperText, makeStyles, createStyles, Theme } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
-import { ITask } from './types/types';
-import CurrentTasksView from './components/CurrentTasksView';
-import './styles/App.css';
+import { ITask } from '../types/types';
+import CurrentTasksView from './CurrentTasksView';
+import '../styles/App.css';
 
 const App = () => {
   const startTasks: ITask[] = [{
